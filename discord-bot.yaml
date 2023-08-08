@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discord-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discord-bot
+  template:
+    metadata:
+      labels:
+        app: discord-bot
+    spec:
+      containers:
+        - name: discord-bot
+          image: 192.168.15.130:32002/discord-bot:0.1
+          resources:
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
+            requests:
+              memory: "500Mi"
+              cpu: "500m"
+          ports:
+          - name: bot-port
+            containerPort: 8081
+          - name: logstash-port
+            containerPort: 32405
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: discord-bot-service
+spec:
+  selector:
+    app: discord-bot
+  ports:
+  - name: bot-bot
+    protocol: TCP
+    port: 8081
+    targetPort: 8081
+    nodePort: 30750
+  - name: logstash-port  
+    protocol: TCP
+    port: 32405
+    targetPort: 32405
+    nodePort: 32406
+  type: NodePort
