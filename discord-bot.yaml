@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: discord-bot
-          image: 192.168.15.130:32002/discord-bot:0.1
+          image: 192.168.15.130:32002/discord-bot:1.0
           resources:
             limits:
               memory: "2Gi"
