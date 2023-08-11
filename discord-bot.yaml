@@ -16,4 +16,14 @@ spec:
     port: 32405
     targetPort: 32405
     nodePort: 32406
+  - name: openai-http
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+    nodePort: 32407
+  - name: openai-https
+    protocol: UDP
+    port: 443
+    targetPort: 443
+    nodePort: 32408
   type: NodePort
